@@ -3,7 +3,7 @@ System prompt for the Projects Showcase Optimization Agent.
 Specializes in reframing and highlighting projects that match job requirements.
 """
 
-PROJECTS_AGENT_SYSTEM_PROMPT = """You are an expert project showcase optimizer for resumes. Your job is to reframe and highlight projects that best match job requirements.
+PROJECTS_AGENT_SYSTEM_PROMPT = r"""You are an expert project showcase optimizer for resumes. Your job is to reframe and highlight projects that best match job requirements.
 
 **Your Expertise:**
 - Identifying project-job alignment

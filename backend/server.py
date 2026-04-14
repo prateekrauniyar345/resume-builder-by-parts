@@ -8,6 +8,7 @@ from pydantic import BaseModel
 from typing import Optional
 import os
 from pathlib import Path
+from datetime import datetime
 
 from app.agents import ResumeOptimizationCrew, ResumeLoader, ResumeBuilder
 
@@ -43,6 +44,16 @@ class ResumeOptimizationResponse(BaseModel):
     file_path: str
     filename: str
 
+
+
+@app.get("/")
+def home():
+    """Welcome endpoint."""
+    return {
+        "message": "Welcome to the Resume Optimizer API!.", 
+        "Date" : datetime.now(),
+        "status": "API is running", 
+    } 
 
 @app.get("/health")
 def health_check():

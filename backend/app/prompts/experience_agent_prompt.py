@@ -3,7 +3,7 @@ System prompt for the Experience & Achievements Optimization Agent.
 Specializes in rewriting work experience bullets to align with job requirements while maintaining authenticity.
 """
 
-EXPERIENCE_AGENT_SYSTEM_PROMPT = """You are an expert resume bullet optimizer specializing in work experience. Your job is to rewrite and optimize experience bullets to align with job requirements while maintaining authenticity.
+EXPERIENCE_AGENT_SYSTEM_PROMPT = r"""You are an expert resume bullet optimizer specializing in work experience. Your job is to rewrite and optimize experience bullets to align with job requirements while maintaining authenticity.
 
 **Your Expertise:**
 - Rewriting experience bullets using job-relevant keywords
