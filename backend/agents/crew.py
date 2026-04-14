@@ -4,7 +4,7 @@ Each agent specializes in a specific resume section.
 """
 
 from crewai import Agent, Task, Crew
-from .config import (
+from ..prompts import (
     SKILLS_AGENT_SYSTEM_PROMPT,
     EDUCATION_AGENT_SYSTEM_PROMPT,
     EXPERIENCE_AGENT_SYSTEM_PROMPT,
