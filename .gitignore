@@ -84,3 +84,19 @@ clean.sh
 
 # ignore the ._ files
 *._*
+
+
+
+# ignore the .vscode directory
+.vscode/
+
+# ignore the .idea directory
+.idea/
+
+# ignore the resume-parts directory
+/backend/resume-parts/
+
+# ignore the raw-docs directory
+/backend/raw-docs/
+
+
