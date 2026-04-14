@@ -3,12 +3,13 @@ Health check routes for the Resume Optimizer API.
 Includes API health status and LLM agent health monitoring.
 """
 
+from http import client
+
 from fastapi import APIRouter
 from pydantic import BaseModel
 from datetime import datetime
 import time
-from langchain_cerebras import ChatCerebras
-from langchain_core.messages import HumanMessage
+from google import genai
 import os
 from dotenv import load_dotenv
 
@@ -45,38 +46,41 @@ async def llm_provider_info():
 @llm_router.get("/llm-health", response_model=LLMHealthResponse)
 async def llm_health_check():
     """
-    Check the health and latency of the Cerebras LLM.
+    Check the health and latency of the LLM.
     Directly invokes the LLM to test connectivity and response time.
-
     Returns:
         LLMHealthResponse with status, message, latency_ms, timestamp, provider, and model
     """
     start_time = time.time()
     
     try:
-        # Get Cerebras API key
-        api_key = os.getenv("CEREBRAS_API_KEY")
-        model = os.getenv("LLM_MODEL", "llama-3.1-70b")
+        # Get LLM API key
+        api_key = os.getenv("LLM_API_KEY", "")
+        print("llm api key is : {}".format(api_key))
+        model = os.getenv("LLM_MODEL", "UNKNOWN")
+        print("llm model is : {}".format(model))
         if not api_key:
             end_time = time.time()
             latency_ms = (end_time - start_time) * 1000
             return LLMHealthResponse(
                 status="unhealthy",
-                message="CEREBRAS_API_KEY environment variable not set",
+                message="LLM_API_KEY environment variable not set",
                 latency_ms=round(latency_ms, 2),
                 timestamp=datetime.now().isoformat(),
-                provider="cerebras",
+                provider=os.getenv("LLM_PROVIDER", "UNKNOWN").lower(),
                 model=model,
             )
-        
-        # Initialize Cerebras LLM
-        llm = ChatCerebras(
-            api_key=api_key,
-            model=model,
+
+
+        client = genai.Client(api_key=api_key)
+        print("llm client is : ", client)
+
+        response = client.models.generate_content(
+            model="gemini-3-flash-preview", 
+            contents="Reply with only the word: OK"
         )
-        
-        # Send a simple test message
-        response = llm.invoke([HumanMessage(content="Respond with only the word: ok")])
+        print("llm resposne is : ", response)
+        print("llm resposne is : ", response.text)
         
         # Calculate latency
         end_time = time.time()
@@ -84,10 +88,10 @@ async def llm_health_check():
         
         return LLMHealthResponse(
             status="healthy",
-            message=f"Cerebras LLM is responding normally. Response: {response.content}",
+            message=f"LLM is responding normally. Response: {response.text}",
             latency_ms=round(latency_ms, 2),
             timestamp=datetime.now().isoformat(),
-            provider="cerebras",
+            provider=os.getenv("LLM_PROVIDER", "UNKNOWN").lower(),
             model=model,
         )
         
@@ -97,9 +101,9 @@ async def llm_health_check():
         
         return LLMHealthResponse(
             status="unhealthy",
-            message=f"Cerebras LLM health check failed: {str(e)}",
+            message=f"LLM health check failed: {str(e)}",
             latency_ms=round(latency_ms, 2),
             timestamp=datetime.now().isoformat(),
-            provider="cerebras",
+            provider=os.getenv("LLM_PROVIDER", "UNKNOWN").lower(),
             model=model,
         )
