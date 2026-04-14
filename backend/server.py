@@ -4,8 +4,7 @@ FastAPI server for resume optimization using multi-agent CrewAI system.
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
-from routes import health_router, resume_router
+from routes import health_router, resume_router, llm_router, default_router
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -26,6 +25,8 @@ app.add_middleware(
 # Register routers
 app.include_router(health_router)
 app.include_router(resume_router)
+app.include_router(llm_router)
+app.include_router(default_router)
 
 
 if __name__ == "__main__":

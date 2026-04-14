@@ -11,7 +11,7 @@ from langchain_cerebras import ChatCerebras
 from langchain_core.messages import HumanMessage
 
 # Create router
-router = APIRouter(prefix="", tags=["health"])
+health_router = APIRouter(prefix="/api", tags=["health"])
 
 
 class LLMHealthResponse(BaseModel):
@@ -24,7 +24,7 @@ class LLMHealthResponse(BaseModel):
     model: str
 
 
-@router.get("/")
+@health_router.get("/")
 def home():
     """Welcome endpoint."""
     return {
@@ -34,13 +34,13 @@ def home():
     }
 
 
-@router.get("/health")
+@health_router.get("/health")
 def health_check():
     """Health check endpoint."""
     return {"status": "ok", "message": "Resume Optimizer API is running"}
 
 
-@router.get("/llm-health", response_model=LLMHealthResponse)
+@health_router.get("/llm-health", response_model=LLMHealthResponse)
 async def llm_health_check():
     """
     Check the health and latency of the Cerebras LLM.

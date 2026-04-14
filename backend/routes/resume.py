@@ -7,11 +7,10 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Optional
 from pathlib import Path
-
 from app.agents import ResumeOptimizationCrew, ResumeLoader, ResumeBuilder
 
-# Create router
-router = APIRouter(prefix="", tags=["resume"])
+# Create resume_router
+resume_router = APIRouter(prefix="/api", tags=["resume"])
 
 
 class ResumeOptimizationRequest(BaseModel):
@@ -29,7 +28,7 @@ class ResumeOptimizationResponse(BaseModel):
     filename: str
 
 
-@router.post("/optimize-resume", response_model=ResumeOptimizationResponse)
+@resume_router.post("/optimize-resume", response_model=ResumeOptimizationResponse)
 async def optimize_resume(request: ResumeOptimizationRequest):
     """
     Optimize resume based on job description.
@@ -84,7 +83,7 @@ async def optimize_resume(request: ResumeOptimizationRequest):
         )
 
 
-@router.get("/resume-parts")
+@resume_router.get("/resume-parts")
 def get_resume_parts():
     """Get all current resume parts for reference."""
     try:
@@ -101,7 +100,7 @@ def get_resume_parts():
         )
 
 
-@router.get("/output-directory")
+@resume_router.get("/output-directory")
 def get_output_directory():
     """Get the output directory path."""
     output_dir = Path(__file__).parent.parent / "output"
