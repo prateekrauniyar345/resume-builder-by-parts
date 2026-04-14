@@ -7,6 +7,7 @@ export default function ResumeOptimizer() {
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState(null)
   const [error, setError] = useState(null)
+  const [pdfLoading, setPdfLoading] = useState(false)
 
   const handleOptimize = async () => {
     setError(null)
@@ -38,84 +39,110 @@ export default function ResumeOptimizer() {
     }
   }
 
+  const handleViewPdf = async () => {
+    setPdfLoading(true)
+    try {
+      alert('PDF conversion feature coming soon! You can compile the LaTeX code in Overleaf.')
+    } catch (err) {
+      alert('Error generating PDF: ' + err.message)
+    } finally {
+      setPdfLoading(false)
+    }
+  }
+
   return (
     <div className="optimizer-container">
-      <div className="input-section">
-        <h2>Paste Job Description</h2>
-        <div className="input-group">
-          <label htmlFor="jobTitle">Job Title (Optional)</label>
-          <input
-            id="jobTitle"
-            type="text"
-            placeholder="e.g., Senior Full Stack Engineer"
-            value={jobTitle}
-            onChange={(e) => setJobTitle(e.target.value)}
-            disabled={loading}
-          />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="jobDescription">Job Description</label>
-          <textarea
-            id="jobDescription"
-            placeholder="Paste the job description here..."
-            value={jobDescription}
-            onChange={(e) => setJobDescription(e.target.value)}
-            disabled={loading}
-            rows={10}
-          />
-          <p className="char-count">
-            {jobDescription.length} characters
-          </p>
-        </div>
-
-        <button
-          onClick={handleOptimize}
-          disabled={loading || !jobDescription.trim()}
-          className="optimize-btn"
-        >
-          {loading ? 'Optimizing Resume...' : 'Optimize Resume'}
-        </button>
-      </div>
-
-      {error && (
-        <div className="error-section">
-          <h3>Error</h3>
-          <p className="error-message">{error}</p>
-        </div>
-      )}
-
-      {result && (
-        <div className="result-section">
-          <div className="result-header">
-            <h2>Your Optimized Resume</h2>
-            <div className="result-actions">
-              <button
-                onClick={() => downloadResume(result.resume_content, result.filename)}
-                className="download-btn"
-              >
-                Download LaTeX
-              </button>
-              <button
-                onClick={() => copyToClipboard(result.resume_content)}
-                className="copy-btn"
-              >
-                Copy Content
-              </button>
+      <div className="two-column-layout">
+        {/* Left Column */}
+        <div className="left-column">
+          <div className="section-card">
+            <h2>Job Description</h2>
+            
+            <div className="form-group">
+              <label htmlFor="jobTitle">Job Title (Optional)</label>
+              <input
+                id="jobTitle"
+                type="text"
+                placeholder="e.g., Senior Full Stack Engineer"
+                value={jobTitle}
+                onChange={(e) => setJobTitle(e.target.value)}
+                disabled={loading}
+                className="form-input"
+              />
             </div>
-          </div>
 
-          <div className="file-info">
-            <p><strong>Saved to:</strong> <code>{result.file_path}</code></p>
-            <p><strong>Filename:</strong> <code>{result.filename}</code></p>
-          </div>
+            <div className="form-group">
+              <label htmlFor="jobDescription">Paste Job Description</label>
+              <textarea
+                id="jobDescription"
+                placeholder="Paste the job description here..."
+                value={jobDescription}
+                onChange={(e) => setJobDescription(e.target.value)}
+                disabled={loading}
+                className="form-textarea"
+              />
+              <div className="char-count">{jobDescription.length} characters</div>
+            </div>
 
-          <div className="resume-preview">
-            <h3>Resume Preview (Raw LaTeX)</h3>
-            <pre>{result.resume_content}</pre>
+            <button
+              onClick={handleOptimize}
+              disabled={loading || !jobDescription.trim()}
+              className="btn-primary"
+            >
+              {loading ? '⏳ Optimizing...' : 'Optimize Resume'}
+            </button>
+            
+            {error && <div className="error-box">{error}</div>}
           </div>
         </div>
-      )}
+
+        {/* Right Column */}
+        <div className="right-column">
+          {!result ? (
+            <div className="section-card empty-state">
+              <p>Your optimized LaTeX resume will appear here</p>
+            </div>
+          ) : (
+            <div className="section-card">
+              <div className="result-header">
+                <h2>Optimized Resume</h2>
+                <div className="button-group">
+                  <button
+                    onClick={handleViewPdf}
+                    disabled={pdfLoading}
+                    className="btn-secondary"
+                    title="View as PDF (like Overleaf)"
+                  >
+                    {pdfLoading ? '⏳ Generating...' : '📄 View PDF'}
+                  </button>
+                  <button
+                    onClick={() => downloadResume(result.resume_content, result.filename)}
+                    className="btn-secondary"
+                    title="Download LaTeX file"
+                  >
+                    ⬇ Download
+                  </button>
+                  <button
+                    onClick={() => copyToClipboard(result.resume_content)}
+                    className="btn-secondary"
+                    title="Copy to clipboard"
+                  >
+                    📋 Copy
+                  </button>
+                </div>
+              </div>
+
+              <div className="latex-preview">
+                <pre>{result.resume_content}</pre>
+              </div>
+
+              <div className="file-info">
+                <small>📁 Saved to: <code>{result.filename}</code></small>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   )
 }
