@@ -71,10 +71,9 @@ venv/
 __pycache__/
 
 
-# ignore the pdf files + personal files folder
-/backend/raw-docs/
-/backend/resume-parts/
-
+# ignore generated output resumes (keep raw-docs and resume-parts)
+/backend/output/
+/backend/.env
 
 # ignore the clean file
 clean.sh
