@@ -73,14 +73,11 @@ async def llm_health_check():
 
 
         client = genai.Client(api_key=api_key)
-        print("llm client is : ", client)
 
         response = client.models.generate_content(
             model="gemini-3-flash-preview", 
             contents="Reply with only the word: OK"
         )
-        print("llm resposne is : ", response)
-        print("llm resposne is : ", response.text)
         
         # Calculate latency
         end_time = time.time()
