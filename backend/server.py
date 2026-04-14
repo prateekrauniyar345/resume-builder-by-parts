@@ -9,7 +9,7 @@ from typing import Optional
 import os
 from pathlib import Path
 
-from backend.agents import ResumeOptimizationCrew, ResumeLoader, ResumeBuilder
+from app.agents import ResumeOptimizationCrew, ResumeLoader, ResumeBuilder
 
 # Initialize FastAPI app
 app = FastAPI(

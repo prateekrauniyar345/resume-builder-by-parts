@@ -94,9 +94,9 @@ clean.sh
 .idea/
 
 # ignore the resume-parts directory
-/backend/resume-parts/
+/backend/app/resume-parts/
 
 # ignore the raw-docs directory
-/backend/raw-docs/
+/backend/app/raw-docs/
 
 
