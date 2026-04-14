@@ -7,7 +7,7 @@ default_router = APIRouter(prefix="/api", tags=["default"])
 
 
 
-@default_router.get("/")
+@default_router.get("/backend-health")
 def home():
     """Welcome endpoint."""
     return {
