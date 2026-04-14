@@ -10,6 +10,7 @@ from ..prompts import (
     EXPERIENCE_AGENT_SYSTEM_PROMPT,
     PROJECTS_AGENT_SYSTEM_PROMPT,
 )
+from .llm_config import DEFAULT_LLM
 
 
 def create_skills_agent():
@@ -21,6 +22,7 @@ def create_skills_agent():
         system_prompt=SKILLS_AGENT_SYSTEM_PROMPT,
         allow_delegation=False,
         verbose=False,
+        llm=DEFAULT_LLM,
     )
 
 
@@ -33,6 +35,7 @@ def create_education_agent():
         system_prompt=EDUCATION_AGENT_SYSTEM_PROMPT,
         allow_delegation=False,
         verbose=False,
+        llm=DEFAULT_LLM,
     )
 
 
@@ -45,6 +48,7 @@ def create_experience_agent():
         system_prompt=EXPERIENCE_AGENT_SYSTEM_PROMPT,
         allow_delegation=False,
         verbose=False,
+        llm=DEFAULT_LLM,
     )
 
 
@@ -57,6 +61,7 @@ def create_projects_agent():
         system_prompt=PROJECTS_AGENT_SYSTEM_PROMPT,
         allow_delegation=False,
         verbose=False,
+        llm=DEFAULT_LLM,
     )
 
 
