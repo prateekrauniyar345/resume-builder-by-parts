@@ -1,5 +1,6 @@
 """
-FastAPI server for resume optimization using multi-agent CrewAI system.
+FastAPI server for resume optimization.
+(Migrating from CrewAI to LangChain/LangGraph)
 """
 
 from datetime import datetime
