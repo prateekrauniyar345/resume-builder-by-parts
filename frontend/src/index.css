@@ -53,6 +53,9 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
+
+/* Ensure all elements use border-box sizing */
+* {
   box-sizing: border-box;
 }
 
@@ -89,11 +92,26 @@ code,
 .counter {
   font-family: var(--mono);
 }
-
+/* Style for inline code and counter badges */
+code {
   display: inline-flex;
   border-radius: 4px;
   color: var(--text-h);
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
 }
+
+.counter {
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text-h);
+  background: var(--accent-bg);
+  padding: 2px 6px;
+  font-size: 0.85rem;
+}
+
 
 code {
   font-size: 15px;
