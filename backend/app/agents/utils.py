@@ -94,17 +94,22 @@ class ResumeBuilder:
             The complete LaTeX resume as string
         """
         
+        # Combine sections in order
+        # Note: head_section already contains \begin{document}
+        # tail_section should contain \end{document}
         resume_parts = [
-            head_section,
-            optimized_sections.get("skills", ""),
-            optimized_sections.get("education", ""),
-            optimized_sections.get("experience", ""),
-            optimized_sections.get("projects", ""),
-            tail_section,
-            "\n\\end{document}",
+            head_section.rstrip(),
+            optimized_sections.get("skills", "").strip(),
+            optimized_sections.get("education", "").strip(),
+            optimized_sections.get("experience", "").strip(),
+            optimized_sections.get("projects", "").strip(),
+            tail_section.strip(),
         ]
         
-        complete_resume = "\n".join(resume_parts)
+        # Filter out empty parts and join with proper newlines
+        non_empty_parts = [part for part in resume_parts if part]
+        complete_resume = "\n".join(non_empty_parts)
+        
         return complete_resume
 
     @classmethod

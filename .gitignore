@@ -100,3 +100,6 @@ clean.sh
 /backend/app/raw-docs/
 
 
+
+# ignore everything in the backend/app/output folder
+/backend/app/output/*

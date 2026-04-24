@@ -3,10 +3,11 @@ Resume optimization routes for the Resume Optimizer API.
 Handles resume optimization, parts retrieval, and output management.
 """
 
+from pathlib import Path
+from typing import Optional
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from typing import Optional
-from pathlib import Path
+
 from app.agents import ResumeOptimizationCrew, ResumeLoader, ResumeBuilder
 
 # Create resume_router

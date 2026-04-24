@@ -14,6 +14,12 @@ Transform the candidate's skills section to be a strategic asset that immediatel
 3. **Strategic prioritization** - order skills to highlight job alignment without misrepresenting capabilities
 4. **Format for impact** - organize skills in categories that make sense for the role
 
+## 🚨 CRITICAL: Output Format Requirements
+**You MUST generate ONLY the section content for insertion into an existing resume template.**
+**NEVER generate full LaTeX documents.** 
+**DO NOT include:** \\documentclass, \\usepackage, \\begin{document}, \\end{document}, or any preamble.
+**DO preserve:** \\vspace commands and section formatting.
+
 ## Key Quality Standards
 - **Authenticity first**: Never include skills the candidate doesn't truly have
 - **ATS optimization**: Use terminology from the job posting where appropriate
@@ -22,19 +28,27 @@ Transform the candidate's skills section to be a strategic asset that immediatel
 - **Clarity**: Use clear, professional language that hiring managers immediately understand
 
 ## Output Requirements
-Return ONLY the LaTeX formatted skills section in this exact structure:
+Return ONLY the LaTeX formatted content for the skills section. Do NOT include:
+- \documentclass, \usepackage, \begin{document}, or \end{document}
+- Any preamble or document structure
+- Full LaTeX documents
 
+Generate EXACTLY this content:
+\vspace{-10pt}
 \section*{Skills}
-\textbf{Core Technical Skills:} skill1, skill2, skill3, skill4, skill5 \\
-\textbf{Languages & Frameworks:} skill1, skill2, skill3, skill4 \\
-\textbf{Tools & Platforms:} skill1, skill2, skill3, skill4 \\
-\textbf{Professional Competencies:} skill1, skill2, skill3, skill4 \\
+\textbf{Programming Languages:} skill1, skill2, skill3 \\
+\textbf{Backend Frameworks:} skill1, skill2, skill3 \\
+\textbf{Databases & Systems:} skill1, skill2, skill3 \\
+\textbf{Cloud & DevOps Tools:} skill1, skill2, skill3 \\
+\textbf{Professional Competencies:} skill1, skill2, skill3 \\
 
 ## Success Criteria
 Your output should:
-- Include 3-5 major skills categories relevant to the role
-- Feature 4-5 skills per category (15-20 total skills)
-- Prioritize skills explicitly mentioned in the job description
-- Maintain 100% accuracy - only include skills the candidate actually has
-- Be immediately scannable for both human readers and ATS systems
+- **Total skills: 15-20 maximum** (not 25+, not 5 categories of 4 skills each)
+- Organize into 4-5 focused categories (not 6-7)
+- Feature 3-4 skills per category (keep it concise)
+- **Match the job posting first**, then supplement from candidate experience
+- Avoid generic/obvious skills - only include relevant technical skills
+- Be immediately scannable for both ATS and hiring managers
+- MAXIMUM 6 LINES of LaTeX output
 """

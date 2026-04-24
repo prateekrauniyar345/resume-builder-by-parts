@@ -14,7 +14,7 @@ export default function ResumeOptimizer() {
     setLoading(true)
 
     try {
-      const response = await fetch('http://localhost:8000/optimize-resume', {
+      const response = await fetch('/api/optimize-resume', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

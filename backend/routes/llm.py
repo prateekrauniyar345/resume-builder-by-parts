@@ -1,8 +1,8 @@
+import os
+import time
+from datetime import datetime
 from fastapi import APIRouter
 from pydantic import BaseModel
-from datetime import datetime
-import time
-import os
 from dotenv import load_dotenv
 from app.agents.llm_config import get_llm
 
@@ -41,20 +41,9 @@ async def llm_health_check():
 
     try:
         llm = get_llm()
-
-        if provider == "genai":
-            response = llm.models.generate_content(
-                model=model,
-                contents="Respond with only the word: ok"
-            )
-            response_text = response.text.strip() if hasattr(response, "text") else str(response)
-
-        elif provider in {"openai", "anthropic", "cerebras"}:
-            response = llm.invoke("Respond with only the word: ok")
-            response_text = getattr(response, "content", str(response)).strip()
-
-        else:
-            raise ValueError(f"Unsupported provider for health check: {provider}")
+        # All providers now use LangChain's unified interface
+        response = llm.invoke("Respond with only the word: ok")
+        response_text = getattr(response, "content", str(response)).strip()
 
         latency_ms = (time.time() - start_time) * 1000
 

@@ -1,7 +1,11 @@
-from pydantic import BaseModel
-from fastapi import APIRouter
-import datetime
+"""
+Default routes for the Resume Optimizer API.
+Provides health check endpoints.
+"""
 
+from datetime import datetime
+from fastapi import APIRouter
+from pydantic import BaseModel
 
 default_router = APIRouter(prefix="/api", tags=["default"])
 
@@ -11,7 +15,7 @@ default_router = APIRouter(prefix="/api", tags=["default"])
 def home():
     """Welcome endpoint."""
     return {
-        "message": "Welcome to the Resume Optimizer API!.",
-        "Date": datetime.datetime.now(),
+        "message": "Welcome to the Resume Optimizer API!",
+        "timestamp": datetime.now().isoformat(),
         "status": "API is running",
     }
