@@ -102,3 +102,18 @@ input {
 input:focus {
   border-color: var(--color-primary);
 }
+
+/* utility styles for components to have consistent spacing */
+.default-margin-on-side {
+  margin: 0 16px;
+}
+
+/* utility styles for components to have consistent spacing */
+.default-margin-on-top {
+  margin-top: 16px;
+}
+
+/* utility styles for components to have consistent spacing */
+.default-margin-on-bottom {
+  margin-bottom: 16px;
+}
