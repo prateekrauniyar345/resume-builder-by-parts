@@ -14,6 +14,7 @@ from ..prompts import (
     EXPERIENCE_AGENT_SYSTEM_PROMPT,
     PROJECTS_AGENT_SYSTEM_PROMPT,
 )
+import os
 
 
 # ============================================================================
@@ -202,5 +203,40 @@ graph.add_edge("judge_node", END)
 resume_workflow = graph.compile()
 
 
+# ============================================================================
+# SAVE GRAPH VISUALIZATION
+# ============================================================================
+
+def save_workflow_visualization():
+    """Save workflow graph as PNG and Mermaid markdown files."""
+    output_dir = os.path.join(os.path.dirname(__file__), "output")
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Save as Mermaid markdown
+    mermaid_text = graph.get_graph().draw_mermaid()
+    mermaid_path = os.path.join(output_dir, "workflow_graph.md")
+    with open(mermaid_path, "w") as f:
+        f.write("# Resume Optimization Workflow\n\n```mermaid\n")
+        f.write(mermaid_text)
+        f.write("\n```")
+    
+    # Save as PNG
+    try:
+        png_data = graph.get_graph().draw_mermaid_png()
+        png_path = os.path.join(output_dir, "workflow_graph.png")
+        with open(png_path, "wb") as f:
+            f.write(png_data)
+        print(f"Graph saved to {output_dir}/")
+        print(f"   - workflow_graph.md (Mermaid text)")
+        print(f"   - workflow_graph.png (PNG image)")
+    except Exception as e:
+        print(f"PNG export failed (graphviz may not be installed): {e}")
+        print(f"   But Mermaid markdown saved to {mermaid_path}")
+
+# Auto-save on import
+try:
+    save_workflow_visualization()
+except Exception as e:
+    print(f"Warning: Could not save workflow visualization: {e}")
 
 
