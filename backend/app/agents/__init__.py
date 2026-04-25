@@ -2,7 +2,7 @@
 Resume optimization agents package.
 """
 from .utils import ResumeLoader, ResumeBuilder
-from .get_agents import AgentFactory
+from .get_agent import AgentFactory
 from .get_llm import get_llm
 
 __all__ = [

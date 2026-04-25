@@ -7,16 +7,6 @@ from langchain.tools import tool
 from .get_llm import get_llm
 
 
-class Agent:
-    """Data class for agent configuration."""
-    
-    def __init__(self, model, agent_name, system_prompt, tools):
-        self.model = model
-        self.agent_name = agent_name
-        self.system_prompt = system_prompt
-        self.tools = tools
-
-
 class AgentFactory:
     """Factory for creating LangChain-based agents."""
     
