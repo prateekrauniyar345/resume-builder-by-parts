@@ -6,7 +6,7 @@ Implements supervisor-routed multi-agent pattern with judge node for feedback.
 from typing import Annotated, TypedDict
 from langgraph.graph import StateGraph, START, END
 from langgraph.graph.message import add_messages
-from .get_agents import AgentFactory
+from .get_agent import AgentFactory
 from .get_llm import get_llm
 from ..prompts import (
     SKILLS_AGENT_SYSTEM_PROMPT,
