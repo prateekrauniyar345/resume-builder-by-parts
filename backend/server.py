@@ -8,7 +8,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
-from app.routes import resume_router, llm_router, default_router
+from app.routes import  llm_router, default_router
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -34,11 +34,11 @@ def home():
         "message": "Welcome to the Resume Optimizer API!",
         "timestamp": datetime.now().isoformat(),
         "status": "API is running",
+        "docs_url": "/docs",
     }
 
 
 # Register routers
-app.include_router(resume_router)
 app.include_router(llm_router)
 app.include_router(default_router)
 

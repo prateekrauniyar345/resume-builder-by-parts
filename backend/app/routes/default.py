@@ -18,4 +18,5 @@ def home():
         "message": "Welcome to the Resume Optimizer API!",
         "timestamp": datetime.now().isoformat(),
         "status": "API is running",
+        "docs_url": "/docs",
     }
