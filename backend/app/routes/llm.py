@@ -4,25 +4,12 @@ from datetime import datetime
 from fastapi import APIRouter
 from pydantic import BaseModel
 from dotenv import load_dotenv
-from app.agents.llm_config import get_llm
+from app.agents.get_llm import get_llm
+from app.models import LLMHealthResponse, LLMProviderInfo
 
 load_dotenv()
 
 llm_router = APIRouter(prefix="/api", tags=["health"])
-
-
-class LLMHealthResponse(BaseModel):
-    status: str
-    message: str
-    latency_ms: float
-    timestamp: str
-    provider: str
-    model: str
-
-
-class LLMProviderInfo(BaseModel):
-    provider: str
-    model: str
 
 
 @llm_router.get("/llm-provider", response_model=LLMProviderInfo)

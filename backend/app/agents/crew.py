@@ -16,7 +16,7 @@ from ..prompts import (
     EXPERIENCE_AGENT_SYSTEM_PROMPT,
     PROJECTS_AGENT_SYSTEM_PROMPT,
 )
-from .llm_config import get_llm
+from .get_llm import get_llm
 import re
 
 load_dotenv()

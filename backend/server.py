@@ -8,7 +8,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
-from routes import resume_router, llm_router, default_router
+from app.routes import resume_router, llm_router, default_router
 
 # Initialize FastAPI app
 app = FastAPI(
