@@ -42,7 +42,7 @@
 }
 
 /* Buttons */
-button {
+button, a.btn-primary, a.btn-secondary, a.btn-login, a.btn-signup {
   font-family: var(--font-body);
   cursor: pointer;
   border: none;
@@ -52,6 +52,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 8px;
+  text-decoration: none;
 }
 
 .btn-primary {

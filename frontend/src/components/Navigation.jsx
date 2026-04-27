@@ -1,22 +1,7 @@
-import { useState } from 'react'
-import { msalInstance, loginRequest } from '../auth/msalConfig'
 import Footer from './Footer'
 import '../styles/Login.css'
 
-export default function Login() {
-  const [isLoading, setIsLoading] = useState(false)
-
-  const handleLogin = async () => {
-    try {
-      setIsLoading(true)
-      await msalInstance.loginPopup(loginRequest)
-      window.location.reload()
-    } catch (error) {
-      console.error('Login failed:', error)
-      setIsLoading(false)
-    }
-  }
-
+export default function Navigation() {
   return (
     <div className="landing-page" style={{ paddingTop: '100px' }}>
         
@@ -60,12 +45,12 @@ export default function Login() {
             <a href="#templates">Templates</a>
           </div>
           <div className="nav-actions">
-            <button onClick={handleLogin} disabled={isLoading} className="btn-login">
+            <a href="/signin" className="btn-login">
               Log In
-            </button>
-            <button onClick={handleLogin} disabled={isLoading} className="btn-signup">
-              {isLoading ? 'Signing up...' : 'Sign Up'}
-            </button>
+            </a>
+            <a href="/signup" className="btn-signup">
+              Sign Up
+            </a>
           </div>
         </nav>
 
@@ -75,9 +60,9 @@ export default function Login() {
           <p className="hero-subtitle">
             Our 4 parallel AI agents analyze your experience, skills, and career goals to craft a highly detailed, ATS-friendly resume perfectly tailored to your target job role.
           </p>
-          <button onClick={handleLogin} disabled={isLoading} className="btn-primary">
+          <a href="/signup" className="btn-primary">
             Build My Resume <span className="arrow">→</span>
-          </button>
+          </a>
 
           <div className="hero-image-container">
             <img 
@@ -132,9 +117,9 @@ export default function Login() {
             <p className="section-description">
               ResumeOptimizer uses 4 specialized AI agents (Skills, Education, Experience, Projects) working in parallel to optimize every section of your resume. Improve visibility, relevance, and recruiter engagement across every application.
             </p>
-            <button onClick={handleLogin} className="btn-secondary">
+            <a href="/signup" className="btn-secondary">
               See How It Works <span className="arrow">→</span>
-            </button>
+            </a>
             <div className="stats-row">
               <div className="stat-box">
                 <h3>40%</h3>
@@ -210,9 +195,9 @@ export default function Login() {
             Smart multi-agent AI, professional LaTeX templates, and ATS-friendly<br/>resumes—everything you need to get hired faster.
           </p>
           <div className="center-btn-wrapper">
-             <button onClick={handleLogin} className="btn-secondary">
+             <a href="/signup" className="btn-secondary">
                 Build My Resume with AI <span className="arrow">→</span>
-             </button>
+             </a>
           </div>
 
           <div className="global-stats-row">
@@ -256,9 +241,9 @@ export default function Login() {
             <p className="section-description">
               Professionally designed LaTeX resume templates to impress recruiters and pass ATS, optimized for clarity, readability, and modern hiring standards.
             </p>
-            <button onClick={handleLogin} className="btn-secondary text-left-btn">
+            <a href="/signup" className="btn-secondary text-left-btn">
               View All Templates <span className="arrow">→</span>
-            </button>
+            </a>
             <div className="templates-features">
               <div className="t-feature">
                 <h4>Modern & Clean Layouts</h4>

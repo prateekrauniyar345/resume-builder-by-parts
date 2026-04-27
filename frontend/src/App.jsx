@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { msalInstance } from './auth/msalConfig'
 import './App.css'
-import Login from './components/Navigation'
+import Navigation from './components/Navigation'
 import Dashboard from './components/Dashboard'
+import SignIn from './components/SignIn'
+import SignUp from './components/SignUp'
 
 function App() {
   const [accounts, setAccounts] = useState([])
@@ -30,7 +33,16 @@ function App() {
     )
   }
 
-  return isAuthenticated ? <Dashboard /> : <Login />
+  return (
+    <Router>
+      <Routes>
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <SignIn />} />
+        <Route path="/" element={isAuthenticated ? <Dashboard /> : <Navigation />} />
+      </Routes>
+    </Router>
+  )
 }
 
 export default App

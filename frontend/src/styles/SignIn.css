@@ -1,0 +1,333 @@
+/* Authentication Pages - Sign In & Sign Up (Web-First Design) */
+
+.auth-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  position: relative;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+/* Back Link */
+.back-link {
+  position: absolute;
+  top: 40px;
+  left: 50px;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.back-link:hover {
+  color: var(--color-text-primary);
+}
+
+/* Auth Card - Centered single column */
+.auth-card {
+  background: white;
+  border-radius: 16px;
+  padding: 60px 80px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
+}
+
+/* Left side - Form content */
+.auth-form-side {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Right side - Info/Benefits - Always hidden */
+.auth-info-side {
+  display: none !important;
+}
+
+/* For Sign Up - Keep info side hidden */
+.signup-card .auth-info-side {
+  display: none !important;
+  flex-direction: column;
+}
+
+/* Logo */
+.auth-logo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+.auth-logo .logo-icon {
+  color: var(--color-primary);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.auth-logo .logo-text {
+  color: var(--color-text-primary);
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* Auth Title & Subtitle */
+.auth-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 16px 0;
+  text-align: left;
+  font-family: var(--font-heading);
+}
+
+.auth-subtitle {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  text-align: left;
+  margin: 0 0 40px 0;
+  line-height: 1.6;
+}
+
+/* Error Message */
+.error-message {
+  background-color: #fee;
+  border: 1px solid #fcc;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #d9534f;
+  font-size: 0.9rem;
+}
+
+.error-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* Microsoft Button */
+.btn-microsoft {
+  width: 100%;
+  padding: 14px 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 24px;
+}
+
+.btn-microsoft:hover:not(:disabled) {
+  background: #f5f5f5;
+  border-color: #ccc;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-microsoft:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-microsoft svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 28px 0;
+  gap: 12px;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* Benefits List (for Sign Up) */
+.benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.benefit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.benefit-icon {
+  color: var(--color-success);
+  font-weight: 700;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* Auth Info */
+.auth-info {
+  text-align: left;
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+  margin-bottom: 28px;
+}
+
+.auth-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.auth-link:hover {
+  color: var(--color-primary-hover);
+}
+
+/* Security Note */
+.security-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  background: rgba(242, 139, 70, 0.08);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0;
+}
+
+.security-note svg {
+  color: var(--color-primary);
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+
+/* Auth Footer */
+.auth-footer {
+  position: absolute;
+  bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  font-size: 0.85rem;
+}
+
+.auth-footer a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.auth-footer a:hover {
+  color: var(--color-text-primary);
+}
+
+.auth-footer .dot {
+  color: var(--color-border);
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
+  .auth-container {
+    width: 100%;
+    padding: 30px 20px;
+  }
+
+  .auth-card {
+    padding: 50px 60px;
+    max-width: 550px;
+  }
+
+  .auth-info-side {
+    display: none !important;
+  }
+
+  .auth-title {
+    font-size: 1.8rem;
+  }
+
+  .auth-logo {
+    justify-content: flex-start;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 640px) {
+  .auth-container {
+    width: 100%;
+    padding: 20px 12px;
+  }
+
+  .back-link {
+    top: 20px;
+    left: 20px;
+    font-size: 0.9rem;
+  }
+
+  .auth-card {
+    padding: 40px 24px;
+    border-radius: 12px;
+    max-width: 100%;
+  }
+
+  .auth-title {
+    font-size: 1.5rem;
+  }
+
+  .auth-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .auth-logo {
+    margin-bottom: 30px;
+  }
+
+  .btn-microsoft {
+    padding: 12px 18px;
+  }
+
+  .auth-footer {
+    bottom: 15px;
+    gap: 12px;
+    font-size: 0.75rem;
+  }
+}
+
