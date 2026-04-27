@@ -593,14 +593,6 @@ button {
   left: -20px;
 }
 
-.footer-section {
-  text-align: center;
-  padding: 40px;
-  border-top: 1px solid var(--color-border);
-  color: var(--color-text-secondary);
-  font-size: 0.9rem;
-}
-
 /* Responsive basics */
 @media (max-width: 1024px) {
 

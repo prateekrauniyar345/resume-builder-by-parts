@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { msalInstance, loginRequest } from '../auth/msalConfig'
+import Footer from './Footer'
 import '../styles/Login.css'
 
 export default function Login() {
@@ -17,7 +18,7 @@ export default function Login() {
   }
 
   return (
-    <div className="landing-page">
+    <div className="landing-page" style={{ paddingTop: '100px' }}>
         
         {/* Navigation */}
         <nav 
@@ -25,13 +26,30 @@ export default function Login() {
           style={{
             backgroundColor: '#ffffff',
             padding: '12px',
-            marginTop: '20px',
             borderRadius: '18px',
             border: '2px solid #e0e0e0',
+            position: 'fixed',
+            top: '20px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            maxWidth: '1200px',
+            width: 'calc(100% - 40px)',
+            zIndex: 1000,
           }}
         >
         
-          <div className="nav-logo">
+          <div className="nav-logo"
+            style={{
+              "cursor": "pointer",
+              "fontSize": "1.2rem",
+              "fontWeight": "bold",
+              "color": "#333333",
+              "display": "flex",
+              "alignItems": "center",
+              "gap": "8px"
+            }}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
             <span className="logo-icon">∞</span>
             <span className="logo-text">ResumeOptimizer</span>
           </div>
@@ -259,10 +277,7 @@ export default function Login() {
           </div>
         </section>
 
-        {/* Footer */}
-        <footer className="footer-section">
-          <p>&copy; 2026 ResumeOptimizer. All rights reserved.</p>
-        </footer>
+        <Footer />
     </div>
   )
 }
