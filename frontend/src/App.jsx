@@ -1,23 +1,36 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { msalInstance } from './auth/msalConfig'
 import './App.css'
-import ResumeOptimizer from './components/ResumeOptimizer'
+import Login from './components/Login'
+import Dashboard from './components/Dashboard'
 
 function App() {
-  return (
-    <div className="app">
-      <header className="app-header">
-        <h1>Resume Optimizer</h1>
-      </header>
-      
-      <main className="app-main">
-        <ResumeOptimizer />
-      </main>
-      
-      <footer className="app-footer">
-        <p>&copy; 2026 AI Resume Optimizer | Powered by CrewAI</p>
-      </footer>
-    </div>
-  )
+  const [accounts, setAccounts] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    // Handle redirect callback
+    msalInstance.handleRedirectPromise().then(() => {
+      const accounts = msalInstance.getAllAccounts()
+      setAccounts(accounts)
+      setIsLoading(false)
+    }).catch(() => {
+      setIsLoading(false)
+    })
+  }, [])
+
+  const isAuthenticated = accounts.length > 0
+
+  if (isLoading) {
+    return (
+      <div className="app-loading">
+        <div className="spinner"></div>
+        <p>Loading...</p>
+      </div>
+    )
+  }
+
+  return isAuthenticated ? <Dashboard /> : <Login />
 }
 
 export default App

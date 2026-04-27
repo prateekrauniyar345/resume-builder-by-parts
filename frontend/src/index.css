@@ -1,17 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
 :root {
   /* primary brand color */
-  --color-primary: #2563eb;          /* Main blue (buttons, links) */
-  --color-primary-hover: #1d4ed8;
-  --color-primary-light: #dbeafe;
+  --color-primary: #f28b46;          /* Vibrant Orange */
+  --color-primary-hover: #e07730;    /* Darker Orange */
+  --color-primary-light: #fbebd8;
 
   /* background system */
-  --color-bg-main: #f5f6f7;          /* Outer gray background */
+  --color-bg-main: #ffffff;          /* Standard page background */
   --color-bg-surface: #ffffff;       /* Cards / main content */
   --color-bg-muted: #f9fafb;         /* subtle sections */
+  --color-bg-outer: #f0ecfc;         /* Soft lavender backdrop */
 
   /* text colors */
-  --color-text-primary: #111827;     /* Headings */
-  --color-text-secondary: #6b7280;   /* Paragraphs */
+  --color-text-primary: #1f2937;     /* Headings / Dark Text */
+  --color-text-secondary: #6b7280;   /* Paragraphs / Body Text */
   --color-text-light: #9ca3af;       /* Muted text */
 
   /* border / divider */
@@ -25,12 +28,17 @@
   /* shadows (soft UI feel) */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
 
   /* radius */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  /* typography */
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
   /* transitions */
   --transition-fast: 0.2s ease;
@@ -44,9 +52,13 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* Body */
 body {
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body);
   background-color: var(--color-bg-main);
   color: var(--color-text-primary);
   line-height: 1.5;
@@ -108,12 +120,10 @@ input:focus {
   margin: 0 16px;
 }
 
-/* utility styles for components to have consistent spacing */
 .default-margin-on-top {
   margin-top: 16px;
 }
 
-/* utility styles for components to have consistent spacing */
 .default-margin-on-bottom {
   margin-bottom: 16px;
 }

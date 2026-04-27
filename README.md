@@ -1,103 +1,348 @@
 # AI Resume Optimizer
 
-A sophisticated multi-agent resume optimization system powered by CrewAI. This application uses specialized AI agents to tailor your resume to any job description while maintaining authenticity.
+A sophisticated multi-agent resume optimization system with a modern dashboard and Microsoft Entra authentication. This application uses specialized AI agents to tailor your resume to any job description while maintaining authenticity.
+
+## ✨ Features
+
+- **Beautiful Dashboard** - Modern, responsive interface with multiple sections
+- **Microsoft Authentication** - Secure sign-in with Microsoft Entra ID
+- **AI-Powered Resume Optimization** - 4 specialized agents optimize different resume sections in parallel
+- **LaTeX Export** - Professional resume generation with full control over formatting
+- **Real-time Status** - See optimization progress and download results instantly
 
 ## 🚀 Quick Start
 
+### Prerequisites
+- Node.js 16+ and npm
+- Python 3.10+
+- Azure subscription (free tier available)
+- LLM API key (OpenAI, Anthropic, Cerebras, or Google Gemini)
+
+### Installation
+
 ```bash
-# 1. Configure environment
+# 1. Clone repository
+cd resume-builder
+
+# 2. Setup Backend
 cd backend
+python3 -m venv venv
+source venv/bin/activate  # macOS/Linux
+# or
+venv\Scripts\activate     # Windows
+pip install -r requirements.txt
+
+# 3. Configure Backend
+cp .env.template .env
+# Edit .env with your LLM API key
+
+# 4. Setup Frontend
+cd ../frontend
+npm install
+
+# 5. Configure Azure AD
+# See AZURE_SETUP.md for detailed instructions
 cp .env.example .env
-# Edit .env and add your LLM API key (OpenAI or Anthropic)
+# Edit .env with your Azure AD credentials
+```
 
-# 2. Run setup script
-cd ..
-bash quickstart.sh
+### Running the Application
 
-# 3. Start Backend (Terminal 1)
+**Terminal 1 - Backend:**
+```bash
 cd backend
 source venv/bin/activate
 python server.py
+```
 
-# 4. Start Frontend (Terminal 2)
+**Terminal 2 - Frontend:**
+```bash
 cd frontend
 npm run dev
-
-# 5. Open browser
-# http://localhost:5173
 ```
 
-## 📋 System Overview
+Visit `http://localhost:5173` in your browser and sign in with Microsoft.
 
-The system uses 4 specialized AI agents that work together to optimize your resume:
+## 🎯 System Overview
 
-1. **Skills Optimizer** - Matches and prioritizes technical skills
-2. **Education Optimizer** - Highlights relevant coursework and achievements
-3. **Experience Optimizer** - Rewrites work bullets for relevance
+### Architecture
+
+```
+User → Login (Microsoft Entra) → Dashboard → Resume Optimizer
+                                    ↓
+                              4 AI Agents (Parallel)
+                              - Skills Matcher
+                              - Education Highlighter
+                              - Experience Rewriter
+                              - Projects Reframer
+                                    ↓
+                              LaTeX Resume Generator
+                                    ↓
+                              Download / Save
+```
+
+### AI Agents
+
+1. **Skills Optimizer** - Matches and prioritizes technical skills from job requirements
+2. **Education Optimizer** - Highlights relevant coursework and academic achievements
+3. **Experience Optimizer** - Rewrites work bullets for relevance with metrics
 4. **Projects Optimizer** - Reframes projects to emphasize job-relevant technologies
 
-### How It Works
-
-```
-Job Description → 4 Agents Process in Parallel → Optimized Resume
-                   ↓
-            Uses Your Background Context
-            (raw-docs folder)
-                   ↓
-            Maintains Authenticity While
-            Tailoring to Job Requirements
-```
+All agents maintain authenticity by using your background documents as ground truth.
 
 ## 📁 Project Structure
 
 ```
 resume-builder/
 ├── backend/
-│   ├── agents/              # CrewAI agents
-│   │   ├── config.py       # System prompts for each agent
-│   │   ├── crew.py         # Crew orchestration
-│   │   └── utils.py        # Resume building utilities
-│   ├── resume-parts/        # Modular LaTeX resume sections
-│   ├── raw-docs/            # Your background documents
-│   ├── output/              # Generated optimized resumes
-│   └── server.py            # FastAPI backend
-├── frontend/                # React application
+│   ├── app/
+│   │   ├── agents/              # LangChain/LangGraph agents
+│   │   │   ├── workflow.py      # Multi-agent state machine
+│   │   │   ├── get_agent.py     # Agent factory
+│   │   │   ├── get_llm.py       # LLM initialization
+│   │   │   ├── config.py        # Agent system prompts
+│   │   │   └── utils.py         # Resume utilities
+│   │   ├── prompts/             # System prompts for each agent
+│   │   ├── routes/              # FastAPI routes
+│   │   ├── models/              # Pydantic response models
+│   │   ├── resume-parts/        # LaTeX resume sections
+│   │   ├── raw-docs/            # Background documents
+│   │   └── output/              # Generated resumes
+│   ├── server.py                # FastAPI application
+│   ├── requirements.txt         # Python dependencies
+│   └── .env                     # LLM configuration
+├── frontend/
 │   ├── src/
-│   │   ├── components/      # React components
-│   │   ├── styles/          # CSS styles
-│   │   └── App.jsx
+│   │   ├── auth/                # Microsoft Auth (MSAL)
+│   │   │   ├── msalConfig.js    # MSAL configuration
+│   │   │   └── AuthContext.jsx  # Auth state management
+│   │   ├── components/
+│   │   │   ├── Dashboard.jsx    # Main dashboard
+│   │   │   ├── Login.jsx        # Login page
+│   │   │   └── ResumeOptimizer.jsx
+│   │   ├── styles/              # CSS styles
+│   │   ├── App.jsx              # Main app component
+│   │   └── main.jsx
+│   ├── .env                     # Azure AD configuration
+│   ├── vite.config.js           # Vite configuration
 │   └── package.json
-├── requirements.txt         # Python dependencies
-├── SETUP.md                 # Detailed setup guide
-└── test_system.py          # System validation script
+├── AZURE_SETUP.md               # Azure AD setup guide
+├── SETUP.md                     # Detailed setup instructions
+└── README.md                    # This file
 ```
 
-## ⚙️ Configuration
+## 🔐 Authentication
+
+The application uses **Microsoft Entra ID** (Azure AD) for secure, enterprise-grade authentication.
+
+### Setup Microsoft Authentication
+
+1. Follow the [Azure AD Setup Guide](./AZURE_SETUP.md)
+2. Get your Azure AD Application ID and Tenant ID
+3. Configure `frontend/.env`:
+
+```env
+VITE_AZURE_CLIENT_ID=your_app_id
+VITE_AZURE_TENANT_ID=common
+VITE_AZURE_REDIRECT_URI=http://localhost:5173
+```
+
+### Authentication Flow
+
+1. User clicks "Sign in with Microsoft"
+2. Redirected to Microsoft login
+3. User authenticates and grants permissions
+4. Redirected back with authorization code
+5. Access token obtained securely
+6. User profile displayed in dashboard
+
+## 🎨 Dashboard Features
+
+### Resume Optimizer Tab
+- Paste job description
+- Specify job title (optional)
+- See optimized resume in real-time
+- Download LaTeX file
+- Copy to clipboard
+
+### History Tab
+- View past optimizations
+- Reuse previous resume versions
+- Track optimization history
+
+### Templates Tab
+- Choose professional resume templates
+- Modern, Classic, Creative options
+- One-click template application
+
+### Settings Tab
+- Notification preferences
+- Dark mode toggle
+- Email subscription management
+- Account preferences
+
+## ⚙️ Backend Configuration
 
 ### Environment Variables
 
 Create `backend/.env`:
 
 ```env
-# Choose your LLM provider:
-
-# OpenAI
-OPENAI_API_KEY=sk-...
-OPENAI_MODEL=gpt-4-turbo
-
-# OR Anthropic
-ANTHROPIC_API_KEY=sk-ant-...
-ANTHROPIC_MODEL=claude-3-opus-20240229
+# LLM Provider Configuration
+LLM_PROVIDER="openai"  # or "anthropic", "cerebras", "genai"
+LLM_MODEL="gpt-4-mini"
+LLM_API_KEY=sk-...
 ```
 
-### Resume Content
+### Supported LLM Providers
 
-- **Resume Sections**: Edit `.tex` files in `backend/resume-parts/`
-- **Background Context**: Add documents to `backend/raw-docs/`
-  - Work descriptions in `.md` format
-  - Project details
-  - Certifications
-  - Any relevant background material
+- **OpenAI**: `gpt-4-mini`, `gpt-4-turbo`
+- **Anthropic**: `claude-3-opus`, `claude-3-sonnet`
+- **Cerebras**: `qwen-3-235b-a22b-instruct-2507`
+- **Google Gemini**: `gemini-2.5-flash-lite`
+
+### Resume Parts
+
+All resume sections are stored as LaTeX templates in `backend/app/resume-parts/`:
+- `head.tex` - Name, contact info
+- `skills.tex` - Technical skills
+- `education.tex` - Degree and coursework
+- `experience.tex` - Work history
+- `projects.tex` - Portfolio projects
+- `tail.tex` - Certifications, awards
+
+### Background Documents
+
+Add context to `backend/app/raw-docs/`:
+- Work descriptions (markdown)
+- Project details
+- Certifications
+- Achievement highlights
+- Any relevant background material
+
+## 🚀 API Endpoints
+
+### Health Checks
+- `GET /api/backend-health` - Backend status
+- `GET /api/llm-health` - LLM provider status
+- `GET /api/llm-provider` - LLM configuration info
+
+### Resume Optimization
+- `POST /api/optimize-resume` - Optimize resume for job description
+  
+**Request:**
+```json
+{
+  "job_description": "Full job posting text...",
+  "job_title": "Senior Full Stack Engineer"
+}
+```
+
+**Response:**
+```json
+{
+  "status": "success",
+  "message": "Resume successfully optimized",
+  "resume_content": "LaTeX content...",
+  "file_path": "/path/to/resume.tex",
+  "filename": "Resume_..."
+}
+```
+
+## 📊 Resume Optimization Process
+
+1. **Load Context**: Retrieve current resume and background documents
+2. **Parse Job**: Extract requirements and keywords from job description
+3. **Parallel Processing**: Run 4 agents simultaneously
+   - Skills agent matches and prioritizes skills
+   - Education agent highlights relevant coursework
+   - Experience agent rewrites bullets with metrics
+   - Projects agent reframes projects for relevance
+4. **Combine**: Assemble optimized sections with header/footer
+5. **Generate**: Create final LaTeX resume with timestamp
+6. **Return**: Send to frontend for download/display
+
+## 🛠️ Development
+
+### Install Dependencies
+```bash
+# Backend
+cd backend
+pip install -r requirements.txt
+
+# Frontend
+cd frontend
+npm install
+```
+
+### Run Development Servers
+```bash
+# Backend (Terminal 1)
+cd backend && python server.py
+
+# Frontend (Terminal 2)
+cd frontend && npm run dev
+```
+
+### Build for Production
+```bash
+# Backend
+cd backend
+# Deploy with gunicorn or similar
+
+# Frontend
+cd frontend
+npm run build
+# Deploy dist/ folder
+```
+
+## 📝 Customization
+
+### Adding New Resume Sections
+1. Create new `.tex` file in `backend/app/resume-parts/`
+2. Update `ResumeLoader.load_all_resume_parts()` in `utils.py`
+3. Create corresponding agent prompt
+
+### Changing Agent Behavior
+Edit system prompts in `backend/app/prompts/`:
+- `skills_agent_prompt.py`
+- `education_agent_prompt.py`
+- `experience_agent_prompt.py`
+- `projects_agent_prompt.py`
+
+### Modifying Resume Output
+Edit LaTeX templates in `backend/app/resume-parts/` directly. Changes automatically apply to all generated resumes.
+
+## 🐛 Troubleshooting
+
+### Login Issues
+- Check Azure AD configuration in AZURE_SETUP.md
+- Verify `frontend/.env` values match Azure app registration
+- Check browser console for MSAL errors
+
+### Resume Generation Fails
+- Check LLM API key in `backend/.env`
+- Verify LLM provider is accessible
+- Check backend logs for detailed errors
+- Ensure all resume parts exist in `backend/app/resume-parts/`
+
+### CORS Errors
+- Frontend and backend URLs should match
+- Check CORS configuration in `backend/server.py`
+- Update allowed origins for your deployment
+
+### Optimization Takes Too Long
+- Some LLM providers are slower than others
+- Check LLM health: `GET /api/llm-health`
+- Consider using faster models (GPT-4-mini, Gemini-Flash)
+
+## 📚 Additional Resources
+
+- [Azure AD Setup Guide](./AZURE_SETUP.md) - Complete Microsoft authentication setup
+- [Detailed Setup Instructions](./SETUP.md) - Step-by-step installation
+- [Implementation Details](./IMPLEMENTATION.md) - Architecture deep dive
+- [Microsoft Entra Documentation](https://learn.microsoft.com/en-us/azure/active-directory/)
+- [MSAL React Documentation](https://github.com/AzureAD/microsoft-authentication-library-for-js/)
 
 ## 🧪 Testing
 

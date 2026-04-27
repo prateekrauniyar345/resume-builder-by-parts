@@ -27,7 +27,7 @@ class ResumeState(TypedDict):
     job_description: str
     resume_context: dict
     optimized_sections: dict
-    judge_feedback: str
+
 
 
 # ============================================================================
@@ -82,11 +82,12 @@ def skills_node(state: ResumeState) -> ResumeState:
     """Skills optimization node."""
     prompt = f"""Optimize skills section for this job:
 
-Job: {state['job_description']}
-Current Skills: {state['resume_context'].get('skills', '')}
-Context: {state['resume_context'].get('background', '')}
+                Job: {state['job_description']}
+                Current Skills: {state['resume_context'].get('skills', '')}
+                Context: {state['resume_context'].get('background', '')}
 
-Return ONLY optimized LaTeX skills section."""
+                Return ONLY optimized LaTeX skills section.
+            """
     
     result = skills_agent.invoke({"messages": [{"role": "user", "content": prompt}]})
     return {
@@ -99,11 +100,12 @@ def education_node(state: ResumeState) -> ResumeState:
     """Education optimization node."""
     prompt = f"""Optimize education section for this job:
 
-Job: {state['job_description']}
-Current Education: {state['resume_context'].get('education', '')}
-Context: {state['resume_context'].get('background', '')}
+                Job: {state['job_description']}
+                Current Education: {state['resume_context'].get('education', '')}
+                Context: {state['resume_context'].get('background', '')}
 
-Return ONLY optimized LaTeX education section."""
+                Return ONLY optimized LaTeX education section.
+                """
     
     result = education_agent.invoke({"messages": [{"role": "user", "content": prompt}]})
     return {
@@ -116,11 +118,12 @@ def experience_node(state: ResumeState) -> ResumeState:
     """Experience optimization node."""
     prompt = f"""Optimize experience section for this job:
 
-Job: {state['job_description']}
-Current Experience: {state['resume_context'].get('experience', '')}
-Context: {state['resume_context'].get('background', '')}
+                Job: {state['job_description']}
+                Current Experience: {state['resume_context'].get('experience', '')}
+                Context: {state['resume_context'].get('background', '')}
 
-Return ONLY optimized LaTeX experience section."""
+                Return ONLY optimized LaTeX experience section.
+                """
     
     result = experience_agent.invoke({"messages": [{"role": "user", "content": prompt}]})
     return {
@@ -133,11 +136,12 @@ def projects_node(state: ResumeState) -> ResumeState:
     """Projects optimization node."""
     prompt = f"""Optimize projects section for this job:
 
-Job: {state['job_description']}
-Current Projects: {state['resume_context'].get('projects', '')}
-Context: {state['resume_context'].get('background', '')}
+                Job: {state['job_description']}
+                Current Projects: {state['resume_context'].get('projects', '')}
+                Context: {state['resume_context'].get('background', '')}
 
-Return ONLY optimized LaTeX projects section."""
+                Return ONLY optimized LaTeX projects section.
+                """
     
     result = projects_agent.invoke({"messages": [{"role": "user", "content": prompt}]})
     return {
@@ -152,17 +156,18 @@ def judge_node(state: ResumeState) -> ResumeState:
     
     judge_prompt = f"""Review optimized resume for: {state['job_description'][:200]}
 
-Optimized Sections:
-- Skills: {state['optimized_sections'].get('skills', 'N/A')[:300]}
-- Education: {state['optimized_sections'].get('education', 'N/A')[:300]}
-- Experience: {state['optimized_sections'].get('experience', 'N/A')[:300]}
-- Projects: {state['optimized_sections'].get('projects', 'N/A')[:300]}
+                        Optimized Sections:
+                        - Skills: {state['optimized_sections'].get('skills', 'N/A')[:300]}
+                        - Education: {state['optimized_sections'].get('education', 'N/A')[:300]}
+                        - Experience: {state['optimized_sections'].get('experience', 'N/A')[:300]}
+                        - Projects: {state['optimized_sections'].get('projects', 'N/A')[:300]}
 
-Provide:
-1. Quality Rating (1-10)
-2. Strengths
-3. Areas for improvement
-4. Feedback per section"""
+                        Provide:
+                        1. Quality Rating (1-10)
+                        2. Strengths
+                        3. Areas for improvement
+                        4. Feedback per section
+                        """
     
     feedback = llm.invoke(judge_prompt)
     feedback_text = getattr(feedback, 'content', str(feedback))
@@ -179,13 +184,16 @@ Provide:
 
 graph = StateGraph(ResumeState)
 
+
+#NOTE:  we will not use the judge node for now
+
 # Add nodes
 graph.add_node("supervisor_node", supervisor_node)
 graph.add_node("skills_node", skills_node)
 graph.add_node("education_node", education_node)
 graph.add_node("experience_node", experience_node)
 graph.add_node("projects_node", projects_node)
-graph.add_node("judge_node", judge_node)
+# graph.add_node("judge_node", judge_node)
 
 # Edges
 graph.add_edge(START, "supervisor_node")
@@ -193,11 +201,14 @@ graph.add_edge("supervisor_node", "skills_node")
 graph.add_edge("supervisor_node", "education_node")
 graph.add_edge("supervisor_node", "experience_node")
 graph.add_edge("supervisor_node", "projects_node")
-graph.add_edge("skills_node", "judge_node")
-graph.add_edge("education_node", "judge_node")
-graph.add_edge("experience_node", "judge_node")
-graph.add_edge("projects_node", "judge_node")
-graph.add_edge("judge_node", END)
+
+
+# ending the workflow after all worker nodes complete (no judge for now)
+graph.add_edge("skills_node", END)
+graph.add_edge("education_node", END)
+graph.add_edge("experience_node", END)
+graph.add_edge("projects_node", END)
+
 
 # Compile
 resume_workflow = graph.compile()

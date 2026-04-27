@@ -1,25 +1,53 @@
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --bg-main: #f5f6f7;
+  --bg-surface: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --border: #e5e7eb;
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-main);
+}
+
+#root {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
 .app {
-  min-height: 100vh;
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
-  overflow-x: hidden;
 }
 
 .app-header {
-  background: #ffffff;
-  border-bottom: 1px solid #000000;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
   padding: 1.5rem 2rem;
   text-align: center;
-  margin: 0;
-  flex-shrink: 0;
+  box-shadow: var(--shadow-md);
 }
 
 .app-header h1 {
-  margin: 0;
   font-size: 1.8rem;
   font-weight: 600;
-  color: #000000;
+  color: var(--text-primary);
   letter-spacing: -0.5px;
 }
 
@@ -27,141 +55,55 @@
   flex: 1;
   padding: 2rem 0;
   display: flex;
-  min-height: 0;
-  box-sizing: border-box;
-  width: 100%;
   overflow: hidden;
 }
 
 .app-footer {
-  background: #ffffff;
-  border-top: 1px solid #000000;
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
   padding: 1.5rem 2rem;
   text-align: center;
-  margin-top: auto;
-  flex-shrink: 0;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .app-footer p {
   margin: 0;
   font-size: 0.95rem;
-  color: #666666;
+  color: var(--text-secondary);
 }
 
-/* Additional layout styles for the main content area */
-.app-main {
-  border-top: 1px solid var(--border);
-  text-align: left;
+/* Loading State */
+.app-loading {
   display: flex;
-  flex-direction: row;
-  gap: 24px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  gap: 1.5rem;
 }
 
-.app-main > div {
-  flex: 1 1 0;
-  padding: 32px;
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
-@media (max-width: 1024px) {
-  .app-main {
-    flex-direction: column;
-    text-align: center;
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  .app-main > div {
-    padding: 24px 20px;
-  }
-}
-
-.icon {
-  margin-bottom: 16px;
-  width: 22px;
-  height: 22px;
-}
-
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
+  100% {
+    transform: rotate(360deg);
   }
 }
 
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
-}
-
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
-}
-
-.ticks {
-  position: relative;
-  width: 100%;
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
-
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
+.app-loading p {
+  font-size: 1.1rem;
+  color: white;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
