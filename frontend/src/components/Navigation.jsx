@@ -20,7 +20,17 @@ export default function Login() {
     <div className="landing-page">
         
         {/* Navigation */}
-        <nav className="navbar">
+        <nav 
+          className="navbar"
+          style={{
+            backgroundColor: '#ffffff',
+            padding: '12px',
+            marginTop: '20px',
+            borderRadius: '18px',
+            border: '2px solid #e0e0e0',
+          }}
+        >
+        
           <div className="nav-logo">
             <span className="logo-icon">∞</span>
             <span className="logo-text">ResumeOptimizer</span>
