@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { msalInstance } from './auth/msalConfig'
 import './App.css'
-import Login from './components/Login'
+import Login from './components/Navigation'
 import Dashboard from './components/Dashboard'
 
 function App() {

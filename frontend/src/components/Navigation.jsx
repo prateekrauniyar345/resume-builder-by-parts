@@ -66,7 +66,7 @@ export default function Login() {
             </div>
             <div className="floating-badge badge-skills">
               <div className="skills-header">
-                <span>Skills 📝</span>
+                <span>Skills</span>
                 <span className="add-skill-btn">+ Add Skill</span>
               </div>
               <div className="skill-tags">
@@ -208,15 +208,15 @@ export default function Login() {
           <div className="why-images-row">
             <div className="why-img-box">
               <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop" alt="Office" />
-              <div className="img-badge">✨ Pro Templates ✓</div>
+              <div className="img-badge">Pro Templates ✓</div>
             </div>
             <div className="why-img-box large">
               <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" alt="Team" />
-              <div className="img-badge">✨ AI Resume Writing ✓</div>
+              <div className="img-badge">AI Resume Writing ✓</div>
             </div>
             <div className="why-img-box">
               <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" alt="Success" />
-              <div className="img-badge">⚡ Fast & Simple ✓</div>
+              <div className="img-badge">Fast & Simple ✓</div>
             </div>
           </div>
         </section>
@@ -233,19 +233,19 @@ export default function Login() {
             </button>
             <div className="templates-features">
               <div className="t-feature">
-                <h4>📚 Modern & Clean Layouts</h4>
+                <h4>Modern & Clean Layouts</h4>
                 <p>Minimal, well-structured designs that highlight your skills and experience clearly.</p>
               </div>
               <div className="t-feature">
-                <h4>✓ ATS-Compatible Formats</h4>
+                <h4>ATS-Compatible Formats</h4>
                 <p>All templates are natively generated in LaTeX to work seamlessly with Applicant Tracking Systems.</p>
               </div>
             </div>
           </div>
           <div className="templates-image">
             <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=2069&auto=format&fit=crop" alt="Professional working" />
-            <div className="floating-badge badge-top-left">✨ AI-Optimized Content Fit</div>
-            <div className="floating-badge badge-bottom-right">🖋️ Fully Customizable</div>
+            <div className="floating-badge badge-top-left">AI-Optimized Content Fit</div>
+            <div className="floating-badge badge-bottom-right">Fully Customizable</div>
           </div>
         </section>
 
